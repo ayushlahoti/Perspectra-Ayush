@@ -1356,3 +1356,328 @@ body, textarea { caret-color: var(--sx-primary); }
   font-size: var(--sx-text-micro);
   cursor: pointer;
 }
+
+/* ── Perspectra intro screen ─────────────────────────────── */
+.sx-splash {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  overflow: hidden;
+  padding: 32px 24px;
+  background: var(--sx-bg);
+  color: var(--sx-fg);
+}
+
+.sx-splash::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  opacity: 0.24;
+  background-image: radial-gradient(var(--sx-border-strong) 0.7px, transparent 0.7px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse at center, black 0%, transparent 74%);
+}
+
+.sx-splash-glow {
+  position: absolute;
+  z-index: -1;
+  width: min(72vw, 740px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--sx-primary) 14%, transparent), transparent 68%);
+  filter: blur(12px);
+  animation: sx-splash-breathe 4s ease-in-out both;
+}
+
+.sx-splash-orbit {
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: 50%;
+  border: 1px solid color-mix(in srgb, var(--sx-border-strong) 45%, transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.sx-splash-orbit::after {
+  position: absolute;
+  top: 17%;
+  left: 12%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  content: "";
+  background: var(--sx-accent);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--sx-accent) 65%, transparent);
+}
+
+.sx-splash-orbit-one {
+  width: min(74vw, 690px);
+  aspect-ratio: 1;
+  margin: calc(min(74vw, 690px) / -2) 0 0 calc(min(74vw, 690px) / -2);
+  animation: sx-splash-rotate 28s linear infinite;
+}
+
+.sx-splash-orbit-two {
+  width: min(60vw, 550px);
+  aspect-ratio: 1;
+  margin: calc(min(60vw, 550px) / -2) 0 0 calc(min(60vw, 550px) / -2);
+  border-style: dashed;
+  opacity: 0.52;
+  animation: sx-splash-rotate 40s linear infinite reverse;
+}
+
+.sx-splash-orbit-two::after {
+  top: auto;
+  bottom: 20%;
+  left: 9%;
+  width: 5px;
+  height: 5px;
+  background: var(--sx-primary);
+}
+
+.sx-splash-content {
+  width: min(100%, 720px);
+  text-align: center;
+  animation: sx-splash-arrive 850ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.sx-splash-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--sx-fg);
+  font-size: var(--sx-text-lg);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+.sx-splash-mark {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid var(--sx-border);
+  border-radius: 13px;
+  color: var(--sx-primary-ink, var(--sx-primary));
+  background: var(--sx-primary-soft);
+  box-shadow: 0 0 36px color-mix(in srgb, var(--sx-primary) 12%, transparent);
+}
+
+.sx-splash-kicker {
+  margin: 38px 0 15px;
+  color: var(--sx-accent-ink);
+  font-family: var(--sx-font-mono);
+  font-size: var(--sx-text-micro);
+  letter-spacing: 0.17em;
+}
+
+.sx-splash-title {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+  font-size: clamp(36px, 6vw, 62px);
+  font-weight: 500;
+  letter-spacing: -0.065em;
+  line-height: 1.04;
+}
+
+.sx-splash-title span {
+  color: var(--sx-primary-ink, var(--sx-primary));
+}
+
+.sx-splash-caption {
+  margin: 20px 0 0;
+  color: var(--sx-muted);
+  font-size: var(--sx-text-base);
+}
+
+.sx-splash-loader {
+  width: min(240px, 64vw);
+  height: 2px;
+  margin: 43px auto 0;
+  overflow: hidden;
+  border-radius: 99px;
+  background: var(--sx-surface-3);
+}
+
+.sx-splash-loader span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--sx-primary), var(--sx-accent));
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: sx-splash-progress 2s linear both;
+}
+
+.sx-splash-status {
+  margin: 12px 0 0;
+  color: var(--sx-muted);
+  font-family: var(--sx-font-mono);
+  font-size: var(--sx-text-micro);
+  letter-spacing: 0.025em;
+}
+
+.sx-splash-skip {
+  position: absolute;
+  right: 28px;
+  bottom: 26px;
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--sx-border);
+  border-radius: var(--sx-radius-pill);
+  color: var(--sx-fg-2);
+  background: var(--sx-surface);
+  font: inherit;
+  font-size: var(--sx-text-sm);
+  cursor: pointer;
+  transition: border-color var(--sx-dur) var(--sx-ease), color var(--sx-dur) var(--sx-ease), background var(--sx-dur) var(--sx-ease);
+}
+
+.sx-splash-skip:hover {
+  border-color: var(--sx-primary);
+  color: var(--sx-fg);
+  background: var(--sx-primary-soft);
+}
+
+@keyframes sx-splash-progress {
+  to { transform: scaleX(1); }
+}
+
+@keyframes sx-splash-arrive {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sx-splash-breathe {
+  0%, 100% { opacity: 0.55; transform: scale(0.94); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+
+@keyframes sx-splash-rotate {
+  to { transform: rotate(1turn); }
+}
+
+@media (max-width: 560px) {
+  .sx-splash { padding: 24px; }
+  .sx-splash-kicker { margin-top: 32px; font-size: 10px; letter-spacing: 0.13em; }
+  .sx-splash-title { font-size: clamp(36px, 10vw, 52px); }
+  .sx-splash-caption { max-width: 28ch; margin: 18px auto 0; line-height: 1.55; }
+  .sx-splash-orbit-one { width: 115vw; margin: calc(115vw / -2) 0 0 calc(115vw / -2); }
+  .sx-splash-orbit-two { width: 92vw; margin: calc(92vw / -2) 0 0 calc(92vw / -2); }
+  .sx-splash-skip { right: 50%; bottom: 24px; transform: translateX(50%); white-space: nowrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sx-splash-content,
+  .sx-splash-glow,
+  .sx-splash-orbit,
+  .sx-splash-loader span {
+    animation: none;
+  }
+
+  .sx-splash-loader span { transform: scaleX(1); }
+}
+/* ── Intro to analyzer route transition ─────────────────── */
+.sx-splash-content,
+.sx-splash-glow,
+.sx-splash-orbit,
+.sx-splash-skip {
+  transition: opacity 600ms ease, transform 600ms cubic-bezier(0.2, 0, 0, 1), filter 600ms ease;
+}
+
+.sx-splash.is-exiting .sx-splash-content {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.985);
+  filter: blur(2px);
+}
+
+.sx-splash.is-exiting .sx-splash-glow,
+.sx-splash.is-exiting .sx-splash-orbit,
+.sx-splash.is-exiting .sx-splash-skip {
+  opacity: 0;
+}
+
+.sx-home-enter {
+  animation: sx-home-enter 760ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+@keyframes sx-home-enter {
+  from { opacity: 0; transform: translateY(9px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sx-splash-content,
+  .sx-splash-glow,
+  .sx-splash-orbit,
+  .sx-splash-skip,
+  .sx-home-enter {
+    animation: none;
+    transition: none;
+  }
+}
+.sx-splash { position: fixed; inset: 0; min-height: auto; }
+
+/* ── Headline letters break apart before the analyzer opens ─ */
+.sx-splash-title .sx-splash-line {
+  display: block;
+  white-space: nowrap;
+}
+
+.sx-splash-letter {
+  display: inline-block;
+  transform-origin: center;
+  will-change: transform, opacity, filter;
+}
+
+.sx-splash.is-exiting .sx-splash-content {
+  transform: translateY(-7px);
+  filter: blur(0.7px);
+}
+
+.sx-splash.is-exiting .sx-splash-letter {
+  animation: sx-splash-letter-break 590ms cubic-bezier(0.46, 0.02, 0.82, 0.35) var(--sx-letter-delay) both;
+}
+
+.sx-splash.is-exiting .sx-splash-brand,
+.sx-splash.is-exiting .sx-splash-kicker,
+.sx-splash.is-exiting .sx-splash-caption,
+.sx-splash.is-exiting .sx-splash-loader,
+.sx-splash.is-exiting .sx-splash-status {
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+@keyframes sx-splash-letter-break {
+  0% { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0) rotate(0) scale(1); }
+  18% { opacity: 1; filter: blur(0); }
+  100% {
+    opacity: 0;
+    filter: blur(3px);
+    transform: translate3d(var(--sx-letter-x), var(--sx-letter-y), 0) rotate(var(--sx-letter-turn)) scale(0.18);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sx-splash.is-exiting .sx-splash-letter { animation: none; }
+  .sx-splash.is-exiting .sx-splash-content,
+  .sx-splash.is-exiting .sx-splash-brand,
+  .sx-splash.is-exiting .sx-splash-kicker,
+  .sx-splash.is-exiting .sx-splash-caption,
+  .sx-splash.is-exiting .sx-splash-loader,
+  .sx-splash.is-exiting .sx-splash-status {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}
